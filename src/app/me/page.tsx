@@ -15,7 +15,7 @@ export default function About() {
 
       {/* Content */}
       <main className="max-w-xl mx-auto px-8 pt-24 pb-16">
-        <h1 className="text-2xl font-normal mb-8">about me.</h1>
+        <h1 className="text-2xl font-normal mb-8">about me</h1>
 
         <div className="space-y-4 text-sm leading-relaxed text-neutral-700">
           <p>hey! i'm ellis alcantara, a recent cs grad from birmingham, al.</p>

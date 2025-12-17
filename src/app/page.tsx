@@ -34,19 +34,29 @@ export default function Home() {
       {/* Draggable Folders Container */}
       <div className="relative w-full h-screen">
         {/* Black folder - top center */}
-        <DraggableFolder href="/folder1" initialX={55} initialY={18}>
+        <DraggableFolder
+          href="https://music.youtube.com/playlist?list=PLKRzYo1agH9ykQyYcQzmt_5OERShZJs5Y&si=lkACUnRFZB3YDmUl"
+          label="music"
+          initialX={55}
+          initialY={18}
+        >
           <BlackFolder className="w-14 h-12" />
         </DraggableFolder>
 
         {/* Gray checkered folder - left side */}
-        <DraggableFolder href="/folder2" initialX={20} initialY={48}>
+        <DraggableFolder
+          href="/experience"
+          label="experience"
+          initialX={20}
+          initialY={48}
+        >
           <GrayFolder className="w-14 h-12" />
         </DraggableFolder>
 
         {/* Yellow folder with label - right side */}
         <DraggableFolder
-          href="/nu-thoughts"
-          label="nu thoughts"
+          href="/projects"
+          label="projects"
           initialX={70}
           initialY={48}
         >
@@ -54,7 +64,12 @@ export default function Home() {
         </DraggableFolder>
 
         {/* Photo item - bottom left */}
-        <DraggableFolder href="/photo" initialX={28} initialY={75}>
+        <DraggableFolder
+          href="https://ellis-demoblog.vercel.app/"
+          label="writings"
+          initialX={28}
+          initialY={75}
+        >
           <div className="w-16 h-16 bg-amber-900 rounded-sm overflow-hidden shadow-md">
             <div className="w-full h-full bg-gradient-to-br from-amber-700 to-amber-900" />
           </div>
