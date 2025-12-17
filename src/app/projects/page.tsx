@@ -1,4 +1,34 @@
 import Link from "next/link";
+import { Carousel } from "@/components/Carousel";
+
+const projects = [
+  {
+    title: "RuneLite Plugin",
+    description:
+      "Custom plugins and automation scripts for Old School RuneScape.",
+    link: "https://github.com/EIIis/equipment-check",
+  },
+  {
+    title: "Image Generation",
+    description: "Experiments with Stable Diffusion for AI image generation.",
+    link: "",
+  },
+  {
+    title: "Runescape Tracking",
+    description: "Tools for tracking player stats and game data.",
+    link: "https://github.com/EIIis/player-tracker",
+  },
+  {
+    title: "Arbitrage Tooling",
+    description: "Automated tools for identifying arbitrage opportunities.",
+    link: "",
+  },
+  {
+    title: "Automation Tooling",
+    description: "Various automation scripts and utilities.",
+    link: "",
+  },
+];
 
 export default function Projects() {
   return (
@@ -17,7 +47,7 @@ export default function Projects() {
       <main className="max-w-xl mx-auto px-8 pt-24 pb-16">
         <h1 className="text-2xl font-normal mb-8">projects</h1>
 
-        <div className="space-y-4 text-sm leading-relaxed text-neutral-700"></div>
+        <Carousel projects={projects} />
       </main>
     </div>
   );
