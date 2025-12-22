@@ -1,54 +1,50 @@
-import Link from "next/link";
-import { Carousel } from "@/components/Carousel";
+import { PageLayout, Carousel } from "@/components";
 
 const projects = [
   {
-    title: "RuneLite Plugin",
+    title: "AFK Labs",
+    iconSrc: "/assets/potion.png",
     description:
-      "Custom plugins and automation scripts for Old School RuneScape.",
-    link: "https://github.com/EIIis/equipment-check",
+      "Building AI suported image generation. You can visit us at afklabs.xyz",
+    link: "https://afklabs.xyz",
   },
   {
-    title: "Image Generation",
+    title: "Image Generation Engine",
+    iconSrc: "/assets/potion.png",
     description: "Experiments with Stable Diffusion for AI image generation.",
-    link: "",
+    link: "https://ai.afklabs.xyz",
   },
   {
     title: "Runescape Tracking",
+    iconSrc: "/assets/potion.png",
     description: "Tools for tracking player stats and game data.",
     link: "https://github.com/EIIis/player-tracker",
   },
   {
-    title: "Arbitrage Tooling",
-    description: "Automated tools for identifying arbitrage opportunities.",
-    link: "",
+    title: "OSRS Arbitrage Tool",
+    iconSrc: "/assets/potion.png",
+    description:
+      "Backend tool that would help me find deals on items that would be worth to 'flip'. Takes into account tax.",
+    link: "https://github.com/EIIis/osrs-arbitrage",
   },
   {
-    title: "Automation Tooling",
+    title: "RuneLite Equipment Check Plugin",
+    iconSrc: "/assets/potion.png",
     description: "Various automation scripts and utilities.",
-    link: "",
+    link: "https://github.com/EIIis/equipment-check",
+  },
+  {
+    title: "Blog Site",
+    iconSrc: "/assets/potion.png",
+    description: "Various automation scripts and utilities.",
+    link: "https://demo.alcantinez.dev/",
   },
 ];
 
 export default function Projects() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Back navigation */}
-      <nav className="fixed top-0 left-0 right-0 px-8 py-6 z-50">
-        <Link
-          href="/"
-          className="text-black text-sm font-normal tracking-wide hover:opacity-60"
-        >
-          ← back
-        </Link>
-      </nav>
-
-      {/* Content */}
-      <main className="max-w-xl mx-auto px-8 pt-24 pb-16">
-        <h1 className="text-2xl font-normal mb-8">projects</h1>
-
-        <Carousel projects={projects} />
-      </main>
-    </div>
+    <PageLayout title="projects">
+      <Carousel projects={projects} />
+    </PageLayout>
   );
 }

@@ -1,63 +1,60 @@
-import Link from "next/link";
-import { Timeline } from "@/components/Timeline";
+import { PageLayout, Timeline } from "@/components";
 
 const jobs = [
+  {
+    company: "AFK Labs",
+    role: "Founder 🤫🤫 (Software Engineer)",
+    date: "dec 2025 - current",
+    location: "remote",
+    description:
+      "Creating consumer web tooling. Basically by building AI suported image generation. You can visit us at afklabs.xyz",
+  },
   {
     company: "Workday",
     role: "Technical Program Manager Intern",
     date: "may 2024 - aug 2024",
     location: "atlanta, georgia",
-    description: "Description of your work and accomplishments.",
+    description:
+      "Technical program manager working in the Product & Technology Strategy and Planning Organization assigned to the Infrastructure Public Cloud Engineering App program.",
   },
   {
     company: "University of Alabama at Birmingham",
     role: "Data Analyst Intern",
     date: "jan 2024 - april 2024",
     location: "birmingham, alabama",
-    description: "Description of your work and accomplishments.",
+    description:
+      "Assigned to a local company (mine was SARCOR LLC) to implement a data-viz tool. Built a tool leverging PowerBI to breakdown utitlty companies by county.",
   },
   {
     company: "Expedia Group",
     role: "Technical Program Manager Intern",
     date: "may 2023 - july 2023",
     location: "seattle, washington",
-    description: "Description of your work and accomplishments.",
+    description:
+      "Technical program manager who collaborated with the Strategic Initiatives Program Management team on rolling out One Identity and One Key.",
   },
   {
     company: "Amazon Lab126",
     role: "Software Quality Asurance Engineer",
     date: "may 2022 - aug 2023",
     location: "sunnyvale, california",
-    description: "Description of your work and accomplishments.",
+    description:
+      "Software QA engineer who designed and implemented a scalable framework in Python for the Amazon Astro robotics platform, enabling validation of hardware-software integration for consumer accessories.",
   },
   {
     company: "HiveRnD",
     role: "Software Engineer",
     date: "may 2021 - july 2021",
     location: "remote",
-    description: "Description of your work and accomplishments.",
+    description:
+      "Drontend developer where I developed key web pages including user profiles and registration flows using TypeScript, React, Node.js, and Chakra UI",
   },
 ];
 
 export default function Experience() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Back navigation */}
-      <nav className="fixed top-0 left-0 right-0 px-8 py-6 z-50">
-        <Link
-          href="/"
-          className="text-black text-sm font-normal tracking-wide hover:opacity-60"
-        >
-          ← back
-        </Link>
-      </nav>
-
-      {/* Content */}
-      <main className="max-w-xl mx-auto px-8 pt-24 pb-16">
-        <h1 className="text-2xl font-normal mb-8">experience</h1>
-
-        <Timeline jobs={jobs} />
-      </main>
-    </div>
+    <PageLayout title="experience">
+      <Timeline jobs={jobs} />
+    </PageLayout>
   );
 }

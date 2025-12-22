@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, ReactNode } from "react";
+import { Card } from "./Card";
+import { IconBox } from "./IconBox";
 
 interface Project {
   title: string;
   description: string;
   link?: string;
   icon?: ReactNode;
+  iconSrc?: string;
 }
 
 interface CarouselProps {
@@ -25,7 +28,7 @@ export function Carousel({ projects }: CarouselProps) {
   };
 
   if (projects.length === 0) {
-    return <p className="text-neutral-500">No projects yet.</p>;
+    return <p className="text-text-secondary">No projects yet.</p>;
   }
 
   const project = projects[currentIndex];
@@ -33,30 +36,38 @@ export function Carousel({ projects }: CarouselProps) {
   return (
     <div className="w-full">
       {/* Project Card */}
-      <div className="border border-neutral-200 p-6 min-h-[200px]">
-        <h2 className="text-lg font-normal mb-3">{project.title}</h2>
-        {/* Icon Box */}
-        <div className="w-12 h-12 border border-neutral-200 flex items-center justify-center mb-3">
-          {project.icon}
-        </div>
-        <p className="text-neutral-600 text-sm leading-relaxed mb-4">
+      <Card className="min-h-[200px] flex flex-col items-center text-center">
+        <h2 className="text-lg font-normal mb-3 text-foreground">
+          {project.title}
+        </h2>
+        {(project.icon || project.iconSrc) && (
+          <IconBox
+            src={project.iconSrc}
+            alt={`${project.title} icon`}
+            size="lg"
+            className="mb-3"
+          >
+            {project.icon}
+          </IconBox>
+        )}
+        <p className="text-text-secondary text-sm leading-relaxed mb-4">
           {project.description}
         </p>
         <a
           href={project.link || "https://github.com/EIIis"}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-black underline hover:opacity-60"
+          className="text-sm text-foreground underline hover:opacity-60 transition-opacity"
         >
-          link project
+          link to do project
         </a>
-      </div>
+      </Card>
 
       {/* Controls */}
       <div className="flex items-center justify-between mt-4">
         <button
           onClick={goToPrevious}
-          className="text-sm text-black hover:opacity-60 px-3 py-1"
+          className="text-sm text-foreground hover:opacity-60 transition-opacity px-3 py-1"
         >
           ← prev
         </button>
@@ -68,7 +79,7 @@ export function Carousel({ projects }: CarouselProps) {
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentIndex ? "bg-black" : "bg-neutral-300"
+                index === currentIndex ? "bg-foreground" : "bg-border-strong"
               }`}
             />
           ))}
@@ -76,7 +87,7 @@ export function Carousel({ projects }: CarouselProps) {
 
         <button
           onClick={goToNext}
-          className="text-sm text-black hover:opacity-60 px-3 py-1"
+          className="text-sm text-foreground hover:opacity-60 transition-opacity px-3 py-1"
         >
           next →
         </button>

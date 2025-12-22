@@ -56,10 +56,42 @@ export function DraggableFolder({
       });
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging) return;
+
+      const touch = e.touches[0];
+      const deltaX = touch.clientX - dragStartPos.current.x;
+      const deltaY = touch.clientY - dragStartPos.current.y;
+
+      if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
+        setHasDragged(true);
+      }
+
+      const deltaXPercent = (deltaX / window.innerWidth) * 100;
+      const deltaYPercent = (deltaY / window.innerHeight) * 100;
+
+      setPosition({
+        x: positionAtDragStart.current.x + deltaXPercent,
+        y: positionAtDragStart.current.y + deltaYPercent,
+      });
+    };
+
     const handleMouseUp = () => {
       if (isDragging) {
-        // Save position to localStorage
-        localStorage.setItem(`folder-position-${href}`, JSON.stringify(position));
+        localStorage.setItem(
+          `folder-position-${href}`,
+          JSON.stringify(position)
+        );
+      }
+      setIsDragging(false);
+    };
+
+    const handleTouchEnd = () => {
+      if (isDragging) {
+        localStorage.setItem(
+          `folder-position-${href}`,
+          JSON.stringify(position)
+        );
       }
       setIsDragging(false);
     };
@@ -67,17 +99,29 @@ export function DraggableFolder({
     if (isDragging) {
       window.addEventListener("mousemove", handleMouseMove);
       window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener("touchmove", handleTouchMove, { passive: true });
+      window.addEventListener("touchend", handleTouchEnd);
     }
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
   }, [isDragging, href, position]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     dragStartPos.current = { x: e.clientX, y: e.clientY };
+    positionAtDragStart.current = { x: position.x, y: position.y };
+    setIsDragging(true);
+    setHasDragged(false);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    dragStartPos.current = { x: touch.clientX, y: touch.clientY };
     positionAtDragStart.current = { x: position.x, y: position.y };
     setIsDragging(true);
     setHasDragged(false);
@@ -92,13 +136,14 @@ export function DraggableFolder({
   return (
     <div
       ref={elementRef}
-      className="absolute cursor-grab active:cursor-grabbing select-none"
+      className="absolute cursor-grab active:cursor-grabbing select-none touch-none"
       style={{
         left: `${position.x}%`,
         top: `${position.y}%`,
         transform: "translate(-50%, -50%)",
       }}
       onMouseDown={handleMouseDown}
+      onTouchStart={handleTouchStart}
     >
       <Link
         href={href}
@@ -107,7 +152,7 @@ export function DraggableFolder({
       >
         {children}
         {label && (
-          <span className="text-xs font-mono text-black tracking-wide">
+          <span className="text-xs font-mono text-foreground tracking-wide">
             {label}
           </span>
         )}
