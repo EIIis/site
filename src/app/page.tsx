@@ -112,7 +112,7 @@ export default function Home() {
         >
           <div className="w-14 h-12 flex items-center justify-center">
             <Image
-              src="/assets/afk.svg"
+              src="/assets/github.png"
               alt="Github folder"
               width={48}
               height={48}
