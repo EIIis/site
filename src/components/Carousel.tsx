@@ -59,7 +59,7 @@ export function Carousel({ projects }: CarouselProps) {
           rel="noopener noreferrer"
           className="text-sm text-foreground underline hover:opacity-60 transition-opacity"
         >
-          link to do project
+          click to check it out :)
         </a>
       </Card>
 
