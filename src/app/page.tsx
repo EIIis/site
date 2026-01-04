@@ -87,7 +87,7 @@ export default function Home() {
 
         {/* AFK folder - bottom left */}
         <DraggableFolder
-          href="https://ellis-demoblog.vercel.app/"
+          href="https://blog.alcantinez.dev/"
           label="writings"
           initialX={28}
           initialY={75}
