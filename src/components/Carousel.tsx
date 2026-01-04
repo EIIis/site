@@ -57,7 +57,7 @@ export function Carousel({ projects }: CarouselProps) {
           href={project.link || "https://github.com/EIIis"}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-foreground underline hover:opacity-60 transition-opacity"
+          className="text-sm text-foreground underline hover-fade"
         >
           click to check it out :)
         </a>
@@ -67,7 +67,7 @@ export function Carousel({ projects }: CarouselProps) {
       <div className="flex items-center justify-between mt-4">
         <button
           onClick={goToPrevious}
-          className="text-sm text-foreground hover:opacity-60 transition-opacity px-3 py-1"
+          className="text-sm text-foreground hover-fade px-3 py-1"
         >
           ← prev
         </button>
@@ -87,7 +87,7 @@ export function Carousel({ projects }: CarouselProps) {
 
         <button
           onClick={goToNext}
-          className="text-sm text-foreground hover:opacity-60 transition-opacity px-3 py-1"
+          className="text-sm text-foreground hover-fade px-3 py-1"
         >
           next →
         </button>

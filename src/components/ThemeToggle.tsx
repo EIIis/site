@@ -16,7 +16,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={cycleTheme}
-      className="text-sm text-foreground hover:opacity-60 transition-opacity"
+      className="nav-link"
       aria-label="Toggle theme"
     >
       {getLabel()}
