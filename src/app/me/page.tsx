@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { PageLayout } from "@/components";
+
+export const metadata: Metadata = {
+  title: "About Me",
+  description:
+    "Learn about Ellis Alcantara — CS graduate from Birmingham, AL with experience at Amazon, Expedia, and Workday, and founder of AFK Labs.",
+  alternates: { canonical: "/me" },
+};
 
 export default function About() {
   return (

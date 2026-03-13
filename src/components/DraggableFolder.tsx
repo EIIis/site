@@ -9,6 +9,8 @@ interface DraggableFolderProps {
   label?: string;
   initialX: number;
   initialY: number;
+  target?: string;
+  rel?: string;
 }
 
 export function DraggableFolder({
@@ -17,6 +19,8 @@ export function DraggableFolder({
   label,
   initialX,
   initialY,
+  target,
+  rel,
 }: DraggableFolderProps) {
   const [position, setPosition] = useState({ x: initialX, y: initialY });
   const [isDragging, setIsDragging] = useState(false);
@@ -149,6 +153,8 @@ export function DraggableFolder({
         href={href}
         onClick={handleClick}
         className="flex flex-col items-center gap-1"
+        {...(target && { target })}
+        {...(rel && { rel })}
       >
         {children}
         {label && (

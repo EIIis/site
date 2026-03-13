@@ -1,8 +1,16 @@
+import type { Metadata } from "next";
 import { PageLayout, Timeline } from "@/components";
+
+export const metadata: Metadata = {
+  title: "Experience",
+  description:
+    "Ellis Alcantara's professional experience — founder of a stealth startup, TPM at Workday and Expedia, QA engineer at Amazon Lab126.",
+  alternates: { canonical: "/experience" },
+};
 
 const jobs = [
   {
-    company: "AFK Labs",
+    company: "Stealth Startup",
     role: "Founder 🤫🤫 (Software Engineer)",
     date: "dec 2025 - current",
     location: "remote",

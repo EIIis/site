@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { PageLayout, Carousel } from "@/components";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Explore projects by Ellis Alcantara including AFK Labs, AI image generation, RuneScape tracking tools, and full-stack web applications.",
+  alternates: { canonical: "/projects" },
+};
 
 const projects = [
   {
