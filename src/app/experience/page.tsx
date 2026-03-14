@@ -14,8 +14,7 @@ const jobs = [
     role: "Founder 🤫🤫 (Software Engineer)",
     date: "dec 2025 - current",
     location: "remote",
-    description:
-      "Creating consumer web tooling. Basically by building AI suported image generation. You can visit us at afklabs.xyz",
+    description: "Creating consumer web tooling. Make that out as you will lol",
   },
   {
     company: "Workday",
@@ -31,7 +30,7 @@ const jobs = [
     date: "jan 2024 - april 2024",
     location: "birmingham, alabama",
     description:
-      "Assigned to a local company (mine was SARCOR LLC) to implement a data-viz tool. Built a tool leverging PowerBI to breakdown utitlty companies by county.",
+      "Assigned to a local company (mine was SARCOR LLC) to implement a data-viz tool. Built a tool leverging PowerBI to breakdown utility companies by county.",
   },
   {
     company: "Expedia Group",

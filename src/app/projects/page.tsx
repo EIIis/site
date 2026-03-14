@@ -13,14 +13,22 @@ const projects = [
     title: "AFK Labs",
     iconSrc: "/assets/potion.png",
     description:
-      "Building AI suported image generation. You can visit us at afklabs.xyz",
+      "Currently building AI image generation for all. You can visit us at afklabs.xyz",
     link: "https://afklabs.xyz",
   },
   {
-    title: "Image Generation Engine",
+    title: "X.com Web Scraper + LLM Replies",
     iconSrc: "/assets/potion.png",
-    description: "Experiments with Stable Diffusion for AI image generation.",
-    link: "https://ai.afklabs.xyz",
+    description:
+      "Basic Playwright scripts to allow a user to login and scrape content from X.com. Also has the ability to connect to a local LLM with Ollama to tweet similar to a user's scraped tweets",
+    link: "https://github.com/eiiis/tweet-trainer",
+  },
+  {
+    title: "PolyTrack",
+    iconSrc: "/assets/potion.png",
+    description:
+      "Full webapp platform to create list of different Polymarket 'markets' and it's holders and follow market evevnt trends, based on user's value threshold.",
+    link: "https://demo.alcantinez.dev/",
   },
   {
     title: "Runescape Tracking",
@@ -47,7 +55,7 @@ const projects = [
     title: "Blog Site",
     iconSrc: "/assets/potion.png",
     description:
-      "Personal log website, I focus on all different types of writing, from personal, technical, rants, it's literally my thoughts. Built with JS, Next.js, Markdown.",
+      "Personal blog website, I focus on all different types of writing, from personal, technical, rants, it's literally my thoughts. Built with JS, Next.js, Markdown.",
     link: "https://demo.alcantinez.dev/",
   },
 ];
