@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, ReactNode } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import { Card } from "./Card";
-import { IconBox } from "./IconBox";
 
 interface Project {
   title: string;
   description: string;
   link?: string;
-  icon?: ReactNode;
   iconSrc?: string;
 }
 
@@ -40,15 +39,16 @@ export function Carousel({ projects }: CarouselProps) {
         <h2 className="text-lg font-normal mb-3 text-foreground">
           {project.title}
         </h2>
-        {(project.icon || project.iconSrc) && (
-          <IconBox
-            src={project.iconSrc}
-            alt={`${project.title} icon`}
-            size="lg"
-            className="mb-3"
-          >
-            {project.icon}
-          </IconBox>
+        {project.iconSrc && (
+          <div className="w-full max-h-[160px] overflow-hidden rounded border border-border-default mb-3">
+            <Image
+              src={project.iconSrc}
+              alt={`${project.title} preview`}
+              width={400}
+              height={160}
+              className="w-full h-auto object-contain"
+            />
+          </div>
         )}
         <p className="text-text-secondary text-sm leading-relaxed mb-4">
           {project.description}
