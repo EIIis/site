@@ -8,7 +8,7 @@ interface Job {
   role: string;
   date: string;
   location: string;
-  description: string;
+  description?: string;
 }
 
 interface TimelineProps {
