@@ -51,13 +51,13 @@ const projects = [
       "Various automation scripts and utilities. Both using AutoHotKey and RuneLite plug-ins. Built with AutoHotkey and Java, the front-end is built in JS and React.",
     link: "https://eiiis.github.io/ahk/",
   },
-  {
-    title: "Blog Site",
-    iconSrc: "/assets/blog.png",
-    description:
-      "Personal blog website, I focus on all different types of writing, from personal, technical, rants, it's literally my thoughts. Built with JS, Next.js, Markdown.",
-    link: "https://demo.alcantinez.dev/",
-  },
+  // {
+  //   title: "Blog Site",
+  //   iconSrc: "/assets/blog.png",
+  //   description:
+  //     "Personal blog website, I focus on all different types of writing, from personal, technical, rants, it's literally my thoughts. Built with JS, Next.js, Markdown.",
+  //   link: "https://demo.alcantinez.dev/",
+  // },
 ];
 
 export default function Projects() {

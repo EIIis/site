@@ -24,13 +24,13 @@ export default function Home() {
         <a href="https://alcantinez.dev/" className="nav-link">
           ellis alcantara
         </a>
-        <a
+        {/* <a
           href="/assets/EllisAlcantara.pdf"
           download="EllisAlcantara_Resume.pdf"
           className="nav-link flex items-center gap-1"
         >
           resume <ArrowIcon className="w-3 h-3 rotate-90" />
-        </a>
+        </a> */}
       </nav>
 
       {/* Draggable Folders Container */}
@@ -92,7 +92,7 @@ export default function Home() {
         </DraggableFolder>
 
         {/* AFK folder - bottom left */}
-        <DraggableFolder
+        {/* <DraggableFolder
           href="https://blog.alcantinez.dev/"
           label="writings"
           initialX={28}
@@ -109,7 +109,7 @@ export default function Home() {
               className="object-contain"
             />
           </div>
-        </DraggableFolder>
+        </DraggableFolder> */}
 
         {/* AFK folder - bottom right */}
         <DraggableFolder
