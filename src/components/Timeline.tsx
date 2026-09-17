@@ -46,7 +46,7 @@ export function Timeline({ jobs }: TimelineProps) {
               </h3>
               <p className="text-sm text-foreground">{job.role}</p>
               <p className="text-xs text-text-muted mt-1">
-                {job.date} // {job.location}
+                {job.date} {" // "} {job.location}
               </p>
               <p className="text-sm text-text-secondary mt-2 leading-relaxed">
                 {job.description}

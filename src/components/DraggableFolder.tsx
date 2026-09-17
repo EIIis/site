@@ -32,11 +32,21 @@ export function DraggableFolder({
   // Load position from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem(`folder-position-${href}`);
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      setPosition(parsed);
-      positionAtDragStart.current = parsed;
-    }
+    if (!saved) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      try {
+        const parsed = JSON.parse(saved) as { x?: unknown; y?: unknown };
+        if (typeof parsed.x !== "number" || typeof parsed.y !== "number") return;
+        const restoredPosition = { x: parsed.x, y: parsed.y };
+        setPosition(restoredPosition);
+        positionAtDragStart.current = restoredPosition;
+      } catch {
+        localStorage.removeItem(`folder-position-${href}`);
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, [href]);
 
   useEffect(() => {

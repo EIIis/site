@@ -4,6 +4,7 @@ export { IconBox } from "./IconBox";
 export { Card } from "./Card";
 export { ThemeProvider, useTheme } from "./ThemeProvider";
 export { ThemeToggle } from "./ThemeToggle";
+export { SiteFooter } from "./SiteFooter";
 export { DraggableFolder } from "./DraggableFolder";
 export { Timeline } from "./Timeline";
 export { Carousel } from "./Carousel";

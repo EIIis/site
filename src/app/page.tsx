@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowIcon } from "@/components/Icons";
 import { DraggableFolder } from "@/components/DraggableFolder";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -92,13 +91,11 @@ export default function Home() {
         </DraggableFolder>
 
         {/* AFK folder - bottom left */}
-        {/* <DraggableFolder
-          href="https://blog.alcantinez.dev/"
+        <DraggableFolder
+          href="/blog"
           label="writings"
           initialX={28}
           initialY={75}
-          target="_blank"
-          rel="noopener noreferrer"
         >
           <div className="w-14 h-12 flex items-center justify-center">
             <Image
@@ -109,7 +106,7 @@ export default function Home() {
               className="object-contain"
             />
           </div>
-        </DraggableFolder> */}
+        </DraggableFolder>
 
         {/* AFK folder - bottom right */}
         <DraggableFolder
@@ -138,46 +135,7 @@ export default function Home() {
         </DraggableFolder>
       </div>
 
-      {/* Footer */}
-      <footer className="main-footer">
-        <a
-          href="https://www.linkedin.com/in/ellisalcantara/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover-fade"
-        >
-          linkedin
-        </a>
-        <span>/</span>
-        <a
-          href="https://www.instagram.com/rs.ellis/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover-fade"
-        >
-          instagram
-        </a>
-        <span>/</span>
-        <a
-          href="https://x.com/alcantinez"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover-fade"
-        >
-          twitter
-        </a>
-        <span>/</span>
-        <a
-          href="https://www.youtube.com/@alcantinez"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover-fade"
-        >
-          youtube
-        </a>
-        <span>/</span>
-        <ThemeToggle />
-      </footer>
+      <SiteFooter fixed />
     </div>
   );
 }

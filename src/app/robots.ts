@@ -5,6 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/blog/admin", "/api/blog/", "/api/auth/"],
     },
     sitemap: "https://alcantinez.dev/sitemap.xml",
   };
