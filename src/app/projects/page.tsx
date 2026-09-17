@@ -13,8 +13,22 @@ const projects = [
     title: "AFK Labs",
     iconSrc: "/assets/AFK.svg",
     description:
-      "Currently building AI image generation for all. You can visit us at afklabs.xyz",
-    link: "https://afklabs.xyz",
+      "Web app that focuses on AI image generation using Stable Diffusion.",
+    link: "https://ai.afklabs.xyz",
+  },
+  {
+    title: "Fitness + Food Tracker",
+    iconSrc: "/assets/xlogo.png",
+    description:
+      "Mobile app built using Swift. All in one health focuused iOS app to track workouts and to track food, including macros.",
+    link: "https://youtu.be/gMNLMhKyKaU?si=vCSKL2Ecoe2zAG0-",
+  },
+  {
+    title: "Index Health App",
+    iconSrc: "/assets/xlogo.png",
+    description:
+      "Mobile app built using React Native. Helps users navigate their preventive health journey.",
+    link: "https://youtu.be/gMNLMhKyKaU?si=vCSKL2Ecoe2zAG0-",
   },
   {
     title: "X.com Web Scraper + LLM Replies",
@@ -28,13 +42,13 @@ const projects = [
     iconSrc: "/assets/polymarket.png",
     description:
       "Full webapp platform to create list of different Polymarket 'markets' and it's holders and follow market evevnt trends, based on user's value threshold.",
-    link: "https://demo.alcantinez.dev/",
+    link: "https://polytrack.afklabs.xyz/",
   },
   {
     title: "Runescape Tracking",
     iconSrc: "/assets/playertrack.png",
     description:
-      "Full stack web application tool for tracking player stats and data. Built with Python, FastAPI, Postgre and hosted on Supabase and Render for the backend. Frontend built with TS, Next.js, Tailwind, and shadcn",
+      "Full stack web application tool for bulk tracking specific player data. Built with Python, FastAPI, Postgre and hosted on Supabase and Render for the backend. Frontend built with TS, Next.js, Tailwind, and shadcn",
     link: "https://track.alcantinez.dev/",
   },
   {
