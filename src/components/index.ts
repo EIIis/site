@@ -8,4 +8,5 @@ export { SiteFooter } from "./SiteFooter";
 export { DraggableFolder } from "./DraggableFolder";
 export { Timeline } from "./Timeline";
 export { Carousel } from "./Carousel";
+export type { WorkItem, Project } from "./Carousel";
 export { BlackFolder, GrayFolder, YellowFolder, ArrowIcon } from "./Icons";

@@ -9,6 +9,7 @@ export interface WorkItem {
   description: string;
   link?: string;
   iconSrc?: string;
+  linkText?: string;
 }
 
 export type Project = WorkItem;
@@ -39,32 +40,42 @@ export function Carousel({ items, projects }: CarouselProps) {
   return (
     <div className="w-full">
       {/* Work Card */}
-      <Card className="min-h-[200px] flex flex-col items-center text-center">
-        <h2 className="text-lg font-normal mb-3 text-foreground">
-          {currentItem.title}
-        </h2>
+      <Card className="h-[420px] w-full flex flex-col items-center text-center">
+        <div className="w-full h-14 flex items-center justify-center mb-3">
+          <h2 className="text-lg font-normal text-foreground line-clamp-2">
+            {currentItem.title}
+          </h2>
+        </div>
         {currentItem.iconSrc && (
-          <div className="w-full max-h-[160px] overflow-hidden rounded border border-border-default mb-3">
+          <div className="w-full h-[160px] overflow-hidden rounded border border-border-default mb-3 flex items-center justify-center bg-background">
             <Image
               src={currentItem.iconSrc}
               alt={`${currentItem.title} preview`}
               width={400}
               height={160}
-              className="w-full h-auto object-contain"
+              className="w-full h-full object-contain p-2"
             />
           </div>
         )}
-        <p className="text-text-secondary text-sm leading-relaxed mb-4">
-          {currentItem.description}
-        </p>
-        <a
-          href={currentItem.link || "https://github.com/EIIis"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-foreground underline hover-fade"
-        >
-          click to check it out :)
-        </a>
+        <div className="w-full h-24 mb-4 text-center overflow-hidden">
+          <p className="text-text-secondary text-sm leading-relaxed line-clamp-4">
+            {currentItem.description}
+          </p>
+        </div>
+        {currentItem.link && currentItem.linkText ? (
+          <a
+            href={currentItem.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-foreground underline hover-fade mt-auto"
+          >
+            {currentItem.linkText}
+          </a>
+        ) : (
+          <span className="text-sm text-text-secondary mt-auto cursor-default select-none">
+            {currentItem.linkText || "Demo/Public Repo coming soon!"}
+          </span>
+        )}
       </Card>
 
       {/* Controls */}

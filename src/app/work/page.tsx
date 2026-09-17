@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageLayout, Carousel } from "@/components";
+import type { WorkItem } from "@/components";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -8,16 +9,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/work" },
 };
 
-const workItems = [
+const workItems: WorkItem[] = [
   {
     title: "AFK Labs",
     iconSrc: "/assets/AFK.svg",
     description:
-      "Web app that focuses on AI image generation using Stable Diffusion.",
-    link: "https://ai.afklabs.xyz",
+      "AFK Labs Independent software studio We build our own products consumer apps and experiments. We build for others. Websites, web apps, mobile apps, and digital products.",
+    link: "https://afklabs.xyz",
+    linkText: "Come check us out!",
   },
   {
-    title: "Fitness + Food Tracker",
+    title: "Statal",
     iconSrc: "/assets/xlogo.png",
     description:
       "Mobile app built using Swift. All in one health focuused iOS app to track workouts and to track food, including macros.",
@@ -29,6 +31,7 @@ const workItems = [
     description:
       "Mobile app built using React Native. Helps users navigate their preventive health journey.",
     link: "https://youtu.be/gMNLMhKyKaU?si=vCSKL2Ecoe2zAG0-",
+    linkText: "MVP demo video I did for YCombinator!",
   },
   {
     title: "X.com Web Scraper + LLM Replies",
@@ -36,6 +39,7 @@ const workItems = [
     description:
       "Basic Playwright scripts to allow a user to login and scrape content from X.com. Also has the ability to connect to a local LLM with Ollama to tweet similar to a user's scraped tweets",
     link: "https://github.com/eiiis/tweet-trainer",
+    linkText: "Checkout the repo!",
   },
   {
     title: "PolyTrack",
@@ -43,13 +47,7 @@ const workItems = [
     description:
       "Full webapp platform to create list of different Polymarket 'markets' and it's holders and follow market evevnt trends, based on user's value threshold.",
     link: "https://polytrack.afklabs.xyz/",
-  },
-  {
-    title: "Runescape Tracking",
-    iconSrc: "/assets/playertrack.png",
-    description:
-      "Full stack web application tool for bulk tracking specific player data. Built with Python, FastAPI, Postgre and hosted on Supabase and Render for the backend. Frontend built with TS, Next.js, Tailwind, and shadcn",
-    link: "https://track.alcantinez.dev/",
+    linkText: "Closed beta. Contact if interested!",
   },
   {
     title: "OSRS Arbitrage Tool",
@@ -57,26 +55,21 @@ const workItems = [
     description:
       "Backend tool that would help me find deals on items that would be worth to 'flip'. Takes into account G.E. tax. Built with Python, FastAPI, OSRS Wiki/RuneLite G.E. API, and hosted on Render.",
     link: "https://github.com/EIIis/osrs-arbitrage",
+    linkText: "Checkout the repo!",
   },
   {
-    title: "Oldschool Runescape Development",
+    title: "ImagGen Labs",
     iconSrc: "/assets/runelite.png",
     description:
-      "Various automation scripts and utilities. Both using AutoHotKey and RuneLite plug-ins. Built with AutoHotkey and Java, the front-end is built in JS and React.",
-    link: "https://eiiis.github.io/ahk/",
+      "ImagGen Labs offers image generation powered by AI technology, Stable Diffusion, we utilize custom image models to allow users create the images that they desire",
+    link: "https://ai.afklabs.xyz/",
+    linkText: "Come check us out!",
   },
-  // {
-  //   title: "Blog Site",
-  //   iconSrc: "/assets/blog.png",
-  //   description:
-  //     "Personal blog website, I focus on all different types of writing, from personal, technical, rants, it's literally my thoughts. Built with JS, Next.js, Markdown.",
-  //   link: "https://demo.alcantinez.dev/",
-  // },
 ];
 
 export default function Work() {
   return (
-    <PageLayout title="work">
+    <PageLayout title="selected work">
       <Carousel items={workItems} />
     </PageLayout>
   );
