@@ -31,7 +31,9 @@ export function DraggableFolder({
 
   // Load position from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem(`folder-position-${href}`);
+    const saved =
+      localStorage.getItem(`folder-position-${href}`) ||
+      (href === "/work" ? localStorage.getItem("folder-position-/projects") : null);
     if (!saved) return;
 
     const frame = window.requestAnimationFrame(() => {

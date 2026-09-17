@@ -25,11 +25,11 @@ export default function About() {
           product management, chief of staff roles, and software engineering
           roles.
         </p>
-        <p>currently working on a few projects that have taken up my time:</p>
+        <p>currently focused on a few things taking up my time:</p>
         <ul className="list-disc list-inside space-y-1">
           <li>My Startup/Growth Hacking</li>
           <li>Personal Tooling Development</li>
-          <li>Runescape Related Development Projects</li>
+          <li>Runescape Related Development</li>
           <li>Automation Tooling</li>
           <li>Startups and Self Development</li>
           <li>Learning (Codings, Leetcode, Math)</li>

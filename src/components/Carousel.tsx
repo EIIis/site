@@ -4,46 +4,50 @@ import { useState } from "react";
 import Image from "next/image";
 import { Card } from "./Card";
 
-interface Project {
+export interface WorkItem {
   title: string;
   description: string;
   link?: string;
   iconSrc?: string;
 }
 
+export type Project = WorkItem;
+
 interface CarouselProps {
-  projects: Project[];
+  items?: WorkItem[];
+  projects?: WorkItem[];
 }
 
-export function Carousel({ projects }: CarouselProps) {
+export function Carousel({ items, projects }: CarouselProps) {
+  const workItems = items ?? projects ?? [];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? workItems.length - 1 : prev - 1));
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === workItems.length - 1 ? 0 : prev + 1));
   };
 
-  if (projects.length === 0) {
-    return <p className="text-text-secondary">No projects yet.</p>;
+  if (workItems.length === 0) {
+    return <p className="text-text-secondary">No work yet.</p>;
   }
 
-  const project = projects[currentIndex];
+  const currentItem = workItems[currentIndex];
 
   return (
     <div className="w-full">
-      {/* Project Card */}
+      {/* Work Card */}
       <Card className="min-h-[200px] flex flex-col items-center text-center">
         <h2 className="text-lg font-normal mb-3 text-foreground">
-          {project.title}
+          {currentItem.title}
         </h2>
-        {project.iconSrc && (
+        {currentItem.iconSrc && (
           <div className="w-full max-h-[160px] overflow-hidden rounded border border-border-default mb-3">
             <Image
-              src={project.iconSrc}
-              alt={`${project.title} preview`}
+              src={currentItem.iconSrc}
+              alt={`${currentItem.title} preview`}
               width={400}
               height={160}
               className="w-full h-auto object-contain"
@@ -51,10 +55,10 @@ export function Carousel({ projects }: CarouselProps) {
           </div>
         )}
         <p className="text-text-secondary text-sm leading-relaxed mb-4">
-          {project.description}
+          {currentItem.description}
         </p>
         <a
-          href={project.link || "https://github.com/EIIis"}
+          href={currentItem.link || "https://github.com/EIIis"}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-foreground underline hover-fade"
@@ -74,7 +78,7 @@ export function Carousel({ projects }: CarouselProps) {
 
         {/* Dots */}
         <div className="flex gap-2">
-          {projects.map((_, index) => (
+          {workItems.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}

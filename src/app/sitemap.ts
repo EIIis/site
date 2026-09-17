@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/projects`,
+      url: `${baseUrl}/work`,
       lastModified: new Date(),
       priority: 0.8,
     },

@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { PageLayout, Carousel } from "@/components";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Work",
   description:
-    "Explore projects by Ellis Alcantara including AFK Labs, AI image generation, RuneScape tracking tools, and full-stack web applications.",
-  alternates: { canonical: "/projects" },
+    "Explore work by Ellis Alcantara including AFK Labs, AI image generation, RuneScape tracking tools, and full-stack web applications.",
+  alternates: { canonical: "/work" },
 };
 
-const projects = [
+const workItems = [
   {
     title: "AFK Labs",
     iconSrc: "/assets/AFK.svg",
@@ -74,10 +74,10 @@ const projects = [
   // },
 ];
 
-export default function Projects() {
+export default function Work() {
   return (
-    <PageLayout title="projects">
-      <Carousel projects={projects} />
+    <PageLayout title="work">
+      <Carousel items={workItems} />
     </PageLayout>
   );
 }

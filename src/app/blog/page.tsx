@@ -29,7 +29,7 @@ export default function BlogPage() {
         <header className="mb-10">
           <h1 className="text-2xl font-normal text-foreground">writings</h1>
           <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-            occasional notes on software, projects, and life.
+            occasional notes on software, work, and life.
           </p>
         </header>
 

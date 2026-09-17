@@ -74,15 +74,15 @@ export default function Home() {
 
         {/* AFK folder - right side */}
         <DraggableFolder
-          href="/projects"
-          label="projects"
+          href="/work"
+          label="work"
           initialX={70}
           initialY={48}
         >
           <div className="w-14 h-12 flex items-center justify-center">
             <Image
               src="/assets/tool.png"
-              alt="Projects folder"
+              alt="Work folder"
               width={48}
               height={48}
               className="object-contain"
