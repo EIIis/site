@@ -14,7 +14,7 @@ const workItems: WorkItem[] = [
     title: "AFK Labs",
     iconSrc: "/assets/AFK.svg",
     description:
-      "AFK Labs Independent software studio We build our own products consumer apps and experiments. We build for others. Websites, web apps, mobile apps, and digital products.",
+      "Independent software studio We build our own products consumer apps and experiments. We build for others. Websites, web apps, mobile apps, and digital products.",
     link: "https://afklabs.xyz",
     linkText: "Come check us out!",
   },

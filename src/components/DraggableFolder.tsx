@@ -26,6 +26,7 @@ export function DraggableFolder({
   const [isDragging, setIsDragging] = useState(false);
   const [hasDragged, setHasDragged] = useState(false);
   const dragStartPos = useRef({ x: 0, y: 0 });
+  const currentPositionRef = useRef({ x: initialX, y: initialY });
   const positionAtDragStart = useRef({ x: initialX, y: initialY });
   const elementRef = useRef<HTMLDivElement>(null);
 
@@ -42,6 +43,7 @@ export function DraggableFolder({
         if (typeof parsed.x !== "number" || typeof parsed.y !== "number") return;
         const restoredPosition = { x: parsed.x, y: parsed.y };
         setPosition(restoredPosition);
+        currentPositionRef.current = restoredPosition;
         positionAtDragStart.current = restoredPosition;
       } catch {
         localStorage.removeItem(`folder-position-${href}`);
@@ -52,11 +54,11 @@ export function DraggableFolder({
   }, [href]);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
+    if (!isDragging) return;
 
-      const deltaX = e.clientX - dragStartPos.current.x;
-      const deltaY = e.clientY - dragStartPos.current.y;
+    const updatePosition = (clientX: number, clientY: number) => {
+      const deltaX = clientX - dragStartPos.current.x;
+      const deltaY = clientY - dragStartPos.current.y;
 
       if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
         setHasDragged(true);
@@ -66,66 +68,46 @@ export function DraggableFolder({
       const deltaXPercent = (deltaX / window.innerWidth) * 100;
       const deltaYPercent = (deltaY / window.innerHeight) * 100;
 
-      setPosition({
+      const nextPosition = {
         x: positionAtDragStart.current.x + deltaXPercent,
         y: positionAtDragStart.current.y + deltaYPercent,
-      });
+      };
+
+      currentPositionRef.current = nextPosition;
+      setPosition(nextPosition);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      updatePosition(e.clientX, e.clientY);
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (!isDragging) return;
-
       const touch = e.touches[0];
-      const deltaX = touch.clientX - dragStartPos.current.x;
-      const deltaY = touch.clientY - dragStartPos.current.y;
-
-      if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
-        setHasDragged(true);
+      if (touch) {
+        updatePosition(touch.clientX, touch.clientY);
       }
-
-      const deltaXPercent = (deltaX / window.innerWidth) * 100;
-      const deltaYPercent = (deltaY / window.innerHeight) * 100;
-
-      setPosition({
-        x: positionAtDragStart.current.x + deltaXPercent,
-        y: positionAtDragStart.current.y + deltaYPercent,
-      });
     };
 
-    const handleMouseUp = () => {
-      if (isDragging) {
-        localStorage.setItem(
-          `folder-position-${href}`,
-          JSON.stringify(position)
-        );
-      }
+    const handleDragEnd = () => {
+      localStorage.setItem(
+        `folder-position-${href}`,
+        JSON.stringify(currentPositionRef.current)
+      );
       setIsDragging(false);
     };
 
-    const handleTouchEnd = () => {
-      if (isDragging) {
-        localStorage.setItem(
-          `folder-position-${href}`,
-          JSON.stringify(position)
-        );
-      }
-      setIsDragging(false);
-    };
-
-    if (isDragging) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("mouseup", handleMouseUp);
-      window.addEventListener("touchmove", handleTouchMove, { passive: true });
-      window.addEventListener("touchend", handleTouchEnd);
-    }
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleDragEnd);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleDragEnd);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mouseup", handleDragEnd);
       window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchend", handleDragEnd);
     };
-  }, [isDragging, href, position]);
+  }, [isDragging, href]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();

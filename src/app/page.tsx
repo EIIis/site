@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { DraggableFolder } from "@/components/DraggableFolder";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -17,9 +18,9 @@ export default function Home() {
 
       {/* Navigation */}
       <nav className="main-nav">
-        <a href="/me" className="nav-link">
+        <Link href="/me" className="nav-link">
           about me
-        </a>
+        </Link>
         <a href="https://alcantinez.dev/" className="nav-link">
           ellis alcantara
         </a>
@@ -34,7 +35,7 @@ export default function Home() {
 
       {/* Draggable Folders Container */}
       <div className="relative w-full h-screen">
-        {/* AFK folder - top center */}
+        {/* Music folder - top center */}
         <DraggableFolder
           href="https://music.youtube.com/playlist?list=PLKRzYo1agH9ykQyYcQzmt_5OERShZJs5Y&si=lkACUnRFZB3YDmUl"
           label="music"
@@ -49,12 +50,13 @@ export default function Home() {
               alt="Music folder"
               width={48}
               height={48}
+              priority
               className="object-contain"
             />
           </div>
         </DraggableFolder>
 
-        {/* AFK folder - left side */}
+        {/* Experience folder - left side */}
         <DraggableFolder
           href="/experience"
           label="experience"
@@ -67,12 +69,13 @@ export default function Home() {
               alt="Experience folder"
               width={48}
               height={48}
+              priority
               className="object-contain"
             />
           </div>
         </DraggableFolder>
 
-        {/* AFK folder - right side */}
+        {/* Work folder - right side */}
         <DraggableFolder
           href="/work"
           label="work"
@@ -85,12 +88,13 @@ export default function Home() {
               alt="Work folder"
               width={48}
               height={48}
+              priority
               className="object-contain"
             />
           </div>
         </DraggableFolder>
 
-        {/* AFK folder - bottom left */}
+        {/* Writings folder - bottom left */}
         <DraggableFolder
           href="/blog"
           label="writings"
@@ -103,6 +107,7 @@ export default function Home() {
               alt="Writings folder"
               width={48}
               height={48}
+              priority
               className="object-contain"
             />
           </div>
