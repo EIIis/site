@@ -23,7 +23,8 @@ const workItems: WorkItem[] = [
     iconSrc: "/assets/xlogo.png",
     description:
       "Mobile app built using Swift. All in one health focuused iOS app to track workouts and to track food, including macros.",
-    link: "https://youtu.be/gMNLMhKyKaU?si=vCSKL2Ecoe2zAG0-",
+    link: "https://apps.apple.com/us/app/statal-gym-workout-tracker/id681436342",
+    linkText: "Download on the App Store",
   },
   {
     title: "Index Health App",
