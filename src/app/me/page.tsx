@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageLayout } from "@/components";
 
 export const metadata: Metadata = {
@@ -11,6 +12,16 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <PageLayout title="about me">
+      <div className="mx-auto mb-6 w-full max-w-72 overflow-hidden rounded border border-border-default">
+        <Image
+          src="/assets/ellis-golden-gate.jpg"
+          alt="Ellis Alcantara at the Golden Gate Bridge"
+          width={1280}
+          height={960}
+          priority
+          className="aspect-square h-auto w-full object-cover object-[55%_center]"
+        />
+      </div>
       <div className="space-y-4 text-sm leading-relaxed text-text-secondary">
         <p>
           hey! i&apos;m ellis alcantara, a recent cs grad from birmingham, al.
