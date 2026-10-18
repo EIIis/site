@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const workItems: WorkItem[] = [
   {
     title: "AFK Labs",
-    iconSrc: "/assets/AFK.svg",
+    iconSrc: "/assets/afk-labs-banner.png",
     description:
       "Independent software studio We build our own products consumer apps and experiments. We build for others. Websites, web apps, mobile apps, and digital products.",
     link: "https://afklabs.xyz",
@@ -20,15 +20,26 @@ const workItems: WorkItem[] = [
   },
   {
     title: "Statal",
-    iconSrc: "/assets/xlogo.png",
+    iconSrc: "/assets/statal-banner-transparent.png",
+    imageFit: "cover",
     description:
       "Mobile app built using Swift. All in one health focuused iOS app to track workouts and to track food, including macros.",
     link: "https://apps.apple.com/us/app/statal-gym-workout-tracker/id681436342",
     linkText: "Download on the App Store",
   },
   {
+    title: "ImagGen",
+    iconSrc: "/assets/imaggen-banner-transparent.png",
+    imageFit: "cover",
+    description:
+      "ImagGen Labs offers image generation powered by AI technology, Stable Diffusion, we utilize custom image models to allow users create the images that they desire",
+    link: "https://ai.afklabs.xyz/",
+    linkText: "Come check us out!",
+  },
+  {
     title: "Index Health App",
-    iconSrc: "/assets/xlogo.png",
+    iconSrc: "/assets/index-health-logo.svg",
+    imageSize: "compact",
     description:
       "Mobile app built using React Native. Helps users navigate their preventive health journey.",
     link: "https://youtu.be/gMNLMhKyKaU?si=vCSKL2Ecoe2zAG0-",
@@ -57,14 +68,6 @@ const workItems: WorkItem[] = [
       "Backend tool that would help me find deals on items that would be worth to 'flip'. Takes into account G.E. tax. Built with Python, FastAPI, OSRS Wiki/RuneLite G.E. API, and hosted on Render.",
     link: "https://github.com/EIIis/osrs-arbitrage",
     linkText: "Checkout the repo!",
-  },
-  {
-    title: "ImagGen Labs",
-    iconSrc: "/assets/runelite.png",
-    description:
-      "ImagGen Labs offers image generation powered by AI technology, Stable Diffusion, we utilize custom image models to allow users create the images that they desire",
-    link: "https://ai.afklabs.xyz/",
-    linkText: "Come check us out!",
   },
 ];
 

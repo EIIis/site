@@ -9,6 +9,8 @@ export interface WorkItem {
   description: string;
   link?: string;
   iconSrc?: string;
+  imageFit?: "contain" | "cover";
+  imageSize?: "compact";
   linkText?: string;
 }
 
@@ -53,7 +55,14 @@ export function Carousel({ items, projects }: CarouselProps) {
               alt={`${currentItem.title} preview`}
               width={400}
               height={160}
-              className="w-full h-full object-contain p-2"
+              loading={currentIndex === 0 ? "eager" : "lazy"}
+              className={`w-full h-full ${
+                currentItem.imageFit === "cover"
+                  ? "object-cover"
+                  : currentItem.imageSize === "compact"
+                    ? "object-contain p-6 sm:p-8"
+                    : "object-contain p-2"
+              }`}
             />
           </div>
         )}
