@@ -43,11 +43,14 @@ export async function POST(request: Request) {
   }
 
   try {
-    await publishPost(validation.data);
+    const publication = await publishPost(validation.data);
     return Response.json({
-      message: "Published. The post will appear after deployment finishes.",
+      message: publication.created
+        ? "Submitted. The post will appear after deployment finishes."
+        : "This post was already submitted and is still available for deployment.",
       postUrl: validation.data.postUrl,
       slug: validation.data.slug,
+      created: publication.created,
     });
   } catch (error) {
     if (error instanceof BlogPublishingError) {

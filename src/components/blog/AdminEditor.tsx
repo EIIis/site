@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, ReactNode, useEffect, useState } from "react";
+import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { slugifyTitle } from "@/lib/blog/slug";
 
 type FieldName = "title" | "date" | "description" | "body";
@@ -20,6 +21,8 @@ function localDate(): string {
 }
 
 export function AdminEditor() {
+  const router = useRouter();
+  const submittingRef = useRef(false);
   const [form, setForm] = useState<EditorForm>({
     title: "",
     date: localDate(),
@@ -31,7 +34,6 @@ export function AdminEditor() {
   const [submitting, setSubmitting] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [message, setMessage] = useState("");
-  const [publishedUrl, setPublishedUrl] = useState("");
   const slug = slugifyTitle(form.title);
 
   useEffect(() => {
@@ -69,16 +71,18 @@ export function AdminEditor() {
     setForm((current) => ({ ...current, [field]: value }));
     setFieldErrors((current) => ({ ...current, [field]: undefined }));
     setMessage("");
-    setPublishedUrl("");
     if (field === "body" && !value.trim()) setPreviewHtml("");
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submittingRef.current) return;
+
+    submittingRef.current = true;
     setSubmitting(true);
     setFieldErrors({});
     setMessage("");
-    setPublishedUrl("");
+    let navigating = false;
 
     try {
       const response = await fetch("/api/blog/posts", {
@@ -89,8 +93,7 @@ export function AdminEditor() {
       const payload = (await response.json()) as {
         error?: string;
         fieldErrors?: FieldErrors;
-        message?: string;
-        postUrl?: string;
+        slug?: string;
       };
 
       if (!response.ok) {
@@ -98,12 +101,19 @@ export function AdminEditor() {
         throw new Error(payload.error ?? "Publishing failed.");
       }
 
-      setMessage(payload.message ?? "Post published.");
-      setPublishedUrl(payload.postUrl ?? "");
+      if (!payload.slug) {
+        throw new Error("Publishing returned an invalid response.");
+      }
+
+      router.replace(`/blog/admin?published=${encodeURIComponent(payload.slug)}`);
+      navigating = true;
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Publishing failed.");
     } finally {
-      setSubmitting(false);
+      if (!navigating) {
+        submittingRef.current = false;
+        setSubmitting(false);
+      }
     }
   }
 
@@ -178,12 +188,7 @@ export function AdminEditor() {
 
       {message ? (
         <p className="text-sm text-text-secondary" role="status">
-          {message}{" "}
-          {publishedUrl ? (
-            <a className="underline" href={publishedUrl} target="_blank" rel="noreferrer">
-              open post
-            </a>
-          ) : null}
+          {message}
         </p>
       ) : null}
 

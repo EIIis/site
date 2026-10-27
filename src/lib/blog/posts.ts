@@ -18,6 +18,11 @@ export interface BlogPost extends BlogPostSummary {
   contentHtml: string;
 }
 
+export interface ParsedBlogPostFile {
+  summary: BlogPostSummary;
+  body: string;
+}
+
 function isValidDate(date: string): boolean {
   if (!DATE_PATTERN.test(date)) return false;
 
@@ -28,20 +33,18 @@ function isValidDate(date: string): boolean {
   );
 }
 
-function readPostFile(fileName: string): {
-  summary: BlogPostSummary;
-  body: string;
-} {
-  const slug = fileName.replace(/\.md$/, "");
-
+export function parsePostMarkdown(
+  slug: string,
+  markdown: string,
+  source = `content/blog/${slug}.md`,
+): ParsedBlogPostFile {
   if (!SLUG_PATTERN.test(slug)) {
     throw new Error(
       `Invalid blog slug "${slug}". Use lowercase letters, numbers, and hyphens.`,
     );
   }
 
-  const fullPath = path.join(BLOG_DIRECTORY, fileName);
-  const parsed = matter(fs.readFileSync(fullPath, "utf8"));
+  const parsed = matter(markdown);
   const title = typeof parsed.data.title === "string" ? parsed.data.title.trim() : "";
   const date = typeof parsed.data.date === "string" ? parsed.data.date.trim() : "";
   const description =
@@ -51,7 +54,7 @@ function readPostFile(fileName: string): {
 
   if (!title || !description || !isValidDate(date)) {
     throw new Error(
-      `Invalid frontmatter in content/blog/${fileName}. Title, description, and a valid YYYY-MM-DD date are required.`,
+      `Invalid frontmatter in ${source}. Title, description, and a valid YYYY-MM-DD date are required.`,
     );
   }
 
@@ -59,6 +62,16 @@ function readPostFile(fileName: string): {
     summary: { slug, title, date, description },
     body: parsed.content,
   };
+}
+
+function readPostFile(fileName: string): ParsedBlogPostFile {
+  const slug = fileName.replace(/\.md$/, "");
+  const fullPath = path.join(BLOG_DIRECTORY, fileName);
+  return parsePostMarkdown(
+    slug,
+    fs.readFileSync(fullPath, "utf8"),
+    `content/blog/${fileName}`,
+  );
 }
 
 function getPostFileNames(): string[] {

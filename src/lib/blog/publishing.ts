@@ -6,6 +6,8 @@ const GITHUB_API_VERSION = "2022-11-28";
 const MAX_TITLE_LENGTH = 120;
 const MAX_DESCRIPTION_LENGTH = 280;
 const MAX_BODY_LENGTH = 200_000;
+const BLOG_POST_PATH_PATTERN =
+  /^content\/blog\/([a-z0-9]+(?:-[a-z0-9]+)*)\.md$/;
 
 export interface BlogPostInput {
   title?: unknown;
@@ -28,6 +30,16 @@ export interface BlogPostValidation {
   isValid: boolean;
   errors: Partial<Record<"title" | "date" | "description" | "body", string>>;
   data: ValidatedBlogPost;
+}
+
+export interface GitHubBlogPostFile {
+  slug: string;
+  path: string;
+  sha: string;
+}
+
+export interface PublishPostResult {
+  created: boolean;
 }
 
 export class BlogPublishingError extends Error {
@@ -155,11 +167,124 @@ async function githubRequest(
   );
 }
 
-export async function publishPost(post: ValidatedBlogPost): Promise<void> {
+async function decodeGitHubFile(response: Response): Promise<string | null> {
+  try {
+    const payload = (await response.json()) as {
+      content?: unknown;
+      encoding?: unknown;
+    };
+
+    if (payload.encoding !== "base64" || typeof payload.content !== "string") {
+      return null;
+    }
+
+    return Buffer.from(payload.content.replace(/\s/g, ""), "base64").toString(
+      "utf8",
+    );
+  } catch {
+    return null;
+  }
+}
+
+async function existingPostMatches(
+  response: Response,
+  expectedMarkdown: string,
+): Promise<boolean> {
+  const existingMarkdown = await decodeGitHubFile(response);
+  return existingMarkdown === expectedMarkdown;
+}
+
+export async function listGitHubBlogPostFiles(): Promise<GitHubBlogPostFile[]> {
   const { branch } = getGitHubConfig();
-  const existing = await githubRequest(post.path, { method: "GET" }, new URLSearchParams({ ref: branch }));
+  const response = await githubRequest(
+    "content/blog",
+    { method: "GET" },
+    new URLSearchParams({ ref: branch }),
+  );
+
+  if (response.status === 404) return [];
+  if (!response.ok) {
+    throw new BlogPublishingError(
+      "GitHub could not load the published posts.",
+      "GITHUB_ERROR",
+    );
+  }
+
+  const payload = (await response.json()) as unknown;
+  if (!Array.isArray(payload)) {
+    throw new BlogPublishingError(
+      "GitHub returned an invalid posts listing.",
+      "GITHUB_ERROR",
+    );
+  }
+
+  return payload.flatMap((entry): GitHubBlogPostFile[] => {
+    if (!entry || typeof entry !== "object") return [];
+
+    const candidate = entry as {
+      type?: unknown;
+      path?: unknown;
+      sha?: unknown;
+    };
+    if (
+      candidate.type !== "file" ||
+      typeof candidate.path !== "string" ||
+      typeof candidate.sha !== "string"
+    ) {
+      return [];
+    }
+
+    const match = BLOG_POST_PATH_PATTERN.exec(candidate.path);
+    if (!match) return [];
+
+    return [{ slug: match[1], path: candidate.path, sha: candidate.sha }];
+  });
+}
+
+export async function readGitHubBlogPostMarkdown(
+  file: GitHubBlogPostFile,
+): Promise<string> {
+  const { branch } = getGitHubConfig();
+  const response = await githubRequest(
+    file.path,
+    { method: "GET" },
+    new URLSearchParams({ ref: branch }),
+  );
+
+  if (!response.ok) {
+    throw new BlogPublishingError(
+      `GitHub could not load ${file.path}.`,
+      "GITHUB_ERROR",
+    );
+  }
+
+  const markdown = await decodeGitHubFile(response);
+  if (markdown === null) {
+    throw new BlogPublishingError(
+      `GitHub returned invalid content for ${file.path}.`,
+      "GITHUB_ERROR",
+    );
+  }
+
+  return markdown;
+}
+
+export async function publishPost(
+  post: ValidatedBlogPost,
+): Promise<PublishPostResult> {
+  const { branch } = getGitHubConfig();
+  const markdown = serializePostMarkdown(post);
+  const existing = await githubRequest(
+    post.path,
+    { method: "GET" },
+    new URLSearchParams({ ref: branch }),
+  );
 
   if (existing.ok) {
+    if (await existingPostMatches(existing, markdown)) {
+      return { created: false };
+    }
+
     throw new BlogPublishingError(
       "A post with this URL already exists.",
       "POST_EXISTS",
@@ -178,12 +303,21 @@ export async function publishPost(post: ValidatedBlogPost): Promise<void> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       message: `Create writing: ${post.title}`,
-      content: Buffer.from(serializePostMarkdown(post), "utf8").toString("base64"),
+      content: Buffer.from(markdown, "utf8").toString("base64"),
       branch,
     }),
   });
 
   if (response.status === 422) {
+    const racedPost = await githubRequest(
+      post.path,
+      { method: "GET" },
+      new URLSearchParams({ ref: branch }),
+    );
+    if (racedPost.ok && (await existingPostMatches(racedPost, markdown))) {
+      return { created: false };
+    }
+
     throw new BlogPublishingError(
       "A post with this URL already exists.",
       "POST_EXISTS",
@@ -196,4 +330,6 @@ export async function publishPost(post: ValidatedBlogPost): Promise<void> {
       "GITHUB_ERROR",
     );
   }
+
+  return { created: true };
 }
