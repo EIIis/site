@@ -1,0 +1,62 @@
+name: Blog
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "content/blog/**"
+      - "src/app/blog/**"
+      - "src/app/api/blog/**"
+      - "src/components/blog/**"
+      - "src/lib/blog/**"
+      - "package.json"
+      - "package-lock.json"
+      - "next.config.ts"
+      - "tsconfig.json"
+      - ".github/workflows/blog.yml"
+  pull_request:
+    paths:
+      - "content/blog/**"
+      - "src/app/blog/**"
+      - "src/app/api/blog/**"
+      - "src/components/blog/**"
+      - "src/lib/blog/**"
+      - "package.json"
+      - "package-lock.json"
+      - "next.config.ts"
+      - "tsconfig.json"
+      - ".github/workflows/blog.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blog-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate blog
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
