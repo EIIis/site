@@ -5,7 +5,7 @@ import type { WorkItem } from "@/components";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Explore work by Ellis Alcantara including AFK Labs, AI image generation, RuneScape tracking tools, and full-stack web applications.",
+    "Explore work by Ellis Alcantara including AFK Labs, InspectBham, AI image generation, and full-stack web applications.",
   alternates: { canonical: "/work" },
 };
 
@@ -37,6 +37,15 @@ const workItems: WorkItem[] = [
     linkText: "Come check us out!",
   },
   {
+    title: "InspectBham",
+    iconSrc: "/assets/inspectbham-banner.png",
+    imageFit: "cover",
+    description:
+      "Search and explore Birmingham and Jefferson County restaurant health inspection scores through an interactive map, detailed listings, and rankings.",
+    link: "https://inspectbham.afklabs.xyz/",
+    linkText: "Explore local food inspection scores!",
+  },
+  {
     title: "Index Health App",
     iconSrc: "/assets/index-health-logo.svg",
     imageSize: "compact",
@@ -52,14 +61,6 @@ const workItems: WorkItem[] = [
       "Basic Playwright scripts to allow a user to login and scrape content from X.com. Also has the ability to connect to a local LLM with Ollama to tweet similar to a user's scraped tweets",
     link: "https://github.com/eiiis/tweet-trainer",
     linkText: "Checkout the repo!",
-  },
-  {
-    title: "PolyTrack",
-    iconSrc: "/assets/polymarket.png",
-    description:
-      "Full webapp platform to create list of different Polymarket 'markets' and it's holders and follow market evevnt trends, based on user's value threshold.",
-    link: "https://polytrack.afklabs.xyz/",
-    linkText: "Closed beta. Contact if interested!",
   },
   {
     title: "OSRS Arbitrage Tool",
